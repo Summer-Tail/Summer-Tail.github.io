@@ -1,0 +1,697 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>群晖炸机自救恢复笔记 | 夏尾的布唠隔</title><meta name="author" content="SummerTail"><meta name="copyright" content="SummerTail"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="起因群晖硬件层过热导致网卡频繁断流、丢包、掉线，为了解决这一问题，我购买了两个12cm的风扇并安装在机器上。然而，这一举动却带来了新的问题。 状态尽管群晖正常引导启动，但使用搜索工具仍无法成功联网。所有的网页项目都无法访问，这使得服务器的功能严重受到限制。 尝试恢复1. 修复网络首先，我尝试通过群晖搜索工具登录账户，尝试将IP地址更改为DHCP或手动配置，但均未成功完成联网操作。我随后尝试更换网口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="群晖炸机自救恢复笔记">
+<meta property="og:url" content="https://www.konfan.cn/2024/01/07/synology/index.html">
+<meta property="og:site_name" content="夏尾的布唠隔">
+<meta property="og:description" content="起因群晖硬件层过热导致网卡频繁断流、丢包、掉线，为了解决这一问题，我购买了两个12cm的风扇并安装在机器上。然而，这一举动却带来了新的问题。 状态尽管群晖正常引导启动，但使用搜索工具仍无法成功联网。所有的网页项目都无法访问，这使得服务器的功能严重受到限制。 尝试恢复1. 修复网络首先，我尝试通过群晖搜索工具登录账户，尝试将IP地址更改为DHCP或手动配置，但均未成功完成联网操作。我随后尝试更换网口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.konfan.cn/2024/01/07/synology/cover.png">
+<meta property="article:published_time" content="2024-01-06T17:31:23.000Z">
+<meta property="article:modified_time" content="2024-02-15T08:07:40.000Z">
+<meta property="article:author" content="SummerTail">
+<meta property="article:tag" content="群晖">
+<meta property="article:tag" content="黑群晖">
+<meta property="article:tag" content="synology">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.konfan.cn/2024/01/07/synology/cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.konfan.cn/2024/01/07/synology/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8ebe44cc1e952c5d4fd6ac69c378fe46";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '群晖炸机自救恢复笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-15 16:07:40'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 文章标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 我的朋友</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2024/01/07/synology/cover.png')"><nav id="nav"><span id="blog-info"><a href="/" title="夏尾的布唠隔"><img class="site-icon" src="/img/favicon.png"/><span class="site-name">夏尾的布唠隔</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 文章标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 我的朋友</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">群晖炸机自救恢复笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-06T17:31:23.000Z" title="发表于 2024-01-07 01:31:23">2024-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-15T08:07:40.000Z" title="更新于 2024-02-15 16:07:40">2024-02-15</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>群晖硬件层过热导致网卡频繁断流、丢包、掉线，为了解决这一问题，我购买了两个12cm的风扇并安装在机器上。然而，这一举动却带来了新的问题。</p>
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>尽管群晖正常引导启动，但使用搜索工具仍无法成功联网。所有的网页项目都无法访问，这使得服务器的功能严重受到限制。</p>
+<h2 id="尝试恢复"><a href="#尝试恢复" class="headerlink" title="尝试恢复"></a>尝试恢复</h2><h3 id="1-修复网络"><a href="#1-修复网络" class="headerlink" title="1. 修复网络"></a>1. 修复网络</h3><p>首先，我尝试通过群晖搜索工具登录账户，尝试将IP地址更改为DHCP或手动配置，但均未成功完成联网操作。我随后尝试更换网口，甚至重启机器，但问题依然存在。</p>
+<h3 id="2-重建引导"><a href="#2-重建引导" class="headerlink" title="2. 重建引导"></a>2. 重建引导</h3><p>鉴于前一步骤的无果，我决定重新制作引导U盘。尽管此举在搜索工具上显示了联网状态，但在恢复引导后，问题依然未解决。通过在Windows上映射的共享文件夹可以正常访问的发现，我推断系统已经成功启动，只是web页面无法正常访问。</p>
+<h3 id="3-检查Nginx"><a href="#3-检查Nginx" class="headerlink" title="3. 检查Nginx"></a>3. 检查Nginx</h3><p>为了进一步排查问题，我通过SSH登录root账户检查了nginx状态。令人意外的是，我发现服务已经启动，端口占用也正常。</p>
+<h2 id="成功访问"><a href="#成功访问" class="headerlink" title="成功访问"></a>成功访问</h2><p>通过上述步骤的排查，我基本确认了群晖已经成功启动，仅存在web页面无法访问的问题。通过SSH登录root账户，<a href="#ResetConfig">重置用户配置</a>后，我终于成功打开了web页面。仅有少数docker macvlan丢失，但经过重新配置后一切恢复正常。这次经历可以说是非常幸运的，同时也提醒我安全与便利之间需要平衡，尤其在长期开启SSH时切勿保存密码。</p>
+<h1 id="群晖命令集"><a href="#群晖命令集" class="headerlink" title="群晖命令集"></a>群晖命令集</h1><blockquote>
+<p>引用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/459751737">https://zhuanlan.zhihu.com/p/459751737</a></p>
+</blockquote>
+<h2 id="1-常用命令"><a href="#1-常用命令" class="headerlink" title="1. 常用命令"></a>1. 常用命令</h2><p>NAS 打印工作组：</p>
+<p>synowin -getWorkgroup</p>
+<p>加入新的 NAS 工作组：</p>
+<p>synowin -joinWorkgroup <group></p>
+<p>打印一般信息：</p>
+<p>synoservice –status</p>
+<p>通过 cli 设置邮件：</p>
+<p>synosyslogmail</p>
+<p>检查升级：</p>
+<p>synoupgrade –check 3</p>
+<p>转储有关您的 nas 的数据：</p>
+<p>syno_system_dump</p>
+<p>打印网络信息包括。当前双工：</p>
+<p>synonet –show</p>
+<p>打印当前主机名：</p>
+<p>synonet –get_hostname</p>
+<p>设置一个新的主机名：</p>
+<p>synonet –set_hostname</p>
+<p>设置新网关：</p>
+<p>synonet –set_gateway gateway</p>
+<p>WOL 唤醒：</p>
+<p>synonet –wake xx:xx:xx:xx:xx:xx <interface></p>
+<p>打印分区布局表。</p>
+<p>synopartition –list</p>
+<h2 id="2-共享相关命令"><a href="#2-共享相关命令" class="headerlink" title="2. 共享相关命令"></a>2. 共享相关命令</h2><p>打印有关共享的信息：</p>
+<p>synoshare –get <sharefolder></p>
+<p>挂载共享加密文件夹：</p>
+<p>synoshare –enc_mount <sharefolder> <password></p>
+<p>卸载加密文件夹：</p>
+<p>synoshare –enc_unmount <sharefolder></p>
+<p>允许删除：</p>
+<p>synoshare –del {TRUE|FALSE} sharename1 sharename2 …</p>
+<p>为共享文件夹设置描述（在文件浏览器的评论中查看）</p>
+<p>synoshare –setdesc sharename desc</p>
+<p>允许浏览共享文件夹</p>
+<p>synoshare –setbrowse sharename browse_flag{0|1}</p>
+<p>重命名共享文件夹：</p>
+<p>synoshare –rename old_sharename new_sharename</p>
+<p>设置允许浏览共享文件夹的用户：</p>
+<p>synoshare –setuser sharename user_auth{NA|RO|RW} operator{+|-|&#x3D;} user_name_list_with_comma</p>
+<h2 id="3-用户相关命令"><a href="#3-用户相关命令" class="headerlink" title="3. 用户相关命令"></a>3. 用户相关命令</h2><p>打印有关用户的主要数据</p>
+<p>sh-4.3# synouser –get wuseman</p>
+<p>User Name : [wuseman]</p>
+<p>User Type : [AUTH_LOCAL]</p>
+<p>User uid : [1026]</p>
+<p>Primary gid : [100]</p>
+<p>Fullname : []</p>
+<p>User Dir : [&#x2F;var&#x2F;services&#x2F;homes&#x2F;wuseman]</p>
+<p>User Shell : [&#x2F;bin&#x2F;sh]</p>
+<p>Expired : [false]</p>
+<p>User Mail : []</p>
+<p>Alloc Size : [82]</p>
+<p>Member Of : [2]</p>
+<p>(100) users</p>
+<p>(101) administrators</p>
+<p>设置新密码&#x2F;更改密码：</p>
+<p>synouser –setpw oldpassword newpassword</p>
+<p>重命名用户：</p>
+<p>synouser –rename old_username new_username</p>
+<p>添加包含完整信息的用户名：</p>
+<p>synouser –add [username pwd “full name” expired{0|1} mail privilege]</p>
+<h2 id="4-通知相关命令："><a href="#4-通知相关命令：" class="headerlink" title="4. 通知相关命令："></a>4. 通知相关命令：</h2><p>发送有关存储的电子邮件：</p>
+<p>synostorage –mail</p>
+<p>锁管理</p>
+<p>synostorage –lock</p>
+<h2 id="5-调优功能："><a href="#5-调优功能：" class="headerlink" title="5. 调优功能："></a>5. 调优功能：</h2><p>获取当前调整配置文件：</p>
+<p>synotune –get</p>
+<p>Outut: Current Profile: performance_throughput</p>
+<p>设置新功能，选项：</p>
+<p>synotune –set performance_throughput OR performance_latency</p>
+<p>转储有关您的 Synology NAS 的信息：</p>
+<p>syno_system_dump</p>
+<h2 id="6-升级相关命令"><a href="#6-升级相关命令" class="headerlink" title="6. 升级相关命令"></a>6. 升级相关命令</h2><p>将您的 nas 设置为自动处理升级：</p>
+<p>synoupgrade –auto</p>
+<p>检查您当前的升级设置：</p>
+<p>synoupgrade –check</p>
+<p>如果有新的，请下载最新的升级：</p>
+<p>synoupgrade –download</p>
+<p>开始升级：</p>
+<p>synoupgrade –start</p>
+<p>检查分区布局表：</p>
+<p>synopartition –check &#x2F;dev&#x2F;sd<X></p>
+<p>查看群晖 NFS 监视器：</p>
+<p>synonfstop</p>
+<h2 id="7-重置Synology-Nas-和其它命令"><a href="#7-重置Synology-Nas-和其它命令" class="headerlink" title="7. 重置Synology Nas 和其它命令"></a>7. 重置Synology Nas 和其它命令</h2><p>重置 Synology NAS（仅限设置）</p>
+<p><a id= "ResetConfig">&#x2F;usr&#x2F;syno&#x2F;sbin&#x2F;.&#x2F;synodsdefault –reset<a/></p>
+<p>将 Synology Nas 重置为出厂默认设置（OBS OBS OBS ALL DATA 将被擦除）</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;sbin&#x2F;.&#x2F;synodsdefault –factory-default</p>
+<p>重新安装 Synology Nas Station，将保留所有数据：</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;sbin&#x2F;.&#x2F;synodsdefault –reinstall; reboot</p>
+<p>通过 cli 重启 NAS SSHD 的正确方法：</p>
+<p>synoservicectl –restart sshd</p>
+<p>列出、卸载或安装 .spk 包文件（本地可用）</p>
+<p>synopkg</p>
+<p>安装一组网络和 ELF 二进制调试工具（并进入根会话）</p>
+<p>synogear</p>
+<p>使用键&#x3D;值对行编写和读取 .ini 样式文件</p>
+<p>synosetkeyvalue</p>
+<p>synogetkeyvalue</p>
+<p>关闭并关闭 NAS（很像 shutdown -h now）</p>
+<p>synopoweroff</p>
+<p>显示已安装的包</p>
+<p>synopkg list | sed ‘s&#x2F;: .*$&#x2F;&#x2F;‘</p>
+<p>卸载软件包</p>
+<p>sudo synopkg uninstall</p>
+<p>Synology 也关机和关机</p>
+<p>syno_poweroff_task</p>
+<p>为本地用户设置&#x2F;建立密码</p>
+<p>synoauth local_username password</p>
+<p>管理 IP 自动阻止功能</p>
+<p>synoautoblock OPTIONS</p>
+<p>管理博客功能</p>
+<p>synoblog_backup [-r|-b] p [-u username] [-o]</p>
+<p>Synology 磁盘控制设备：类似于 &#x2F;dev&#x2F;hda 或 &#x2F;dev&#x2F;sda</p>
+<p>syno_disk_ctl OPTIONS DEVICE</p>
+<p>Synology clear .tbd-文件工具</p>
+<p>SYNOClearTdb FILE</p>
+<p>打印有关 NAS 的各种信息的不同方法</p>
+<p>more &#x2F;etc.defaults&#x2F;VERSION</p>
+<p>cat &#x2F;etc&#x2F;synoinfo.conf</p>
+<p>cat &#x2F;proc&#x2F;cmdline</p>
+<p>synoshare –enum ALL</p>
+<p>synonet –show</p>
+<p>synodisk –enum</p>
+<p>synospace –enum -a</p>
+<p>重启索引</p>
+<p>synoservicectl –restart synoindexd</p>
+<p>检查升级</p>
+<p>sudo synoupgrade –check</p>
+<p>重启网络服务器</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;sbin&#x2F;synoservicecfg –restart httpd-user</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;sbin&#x2F;synoservicectl –restart pkgctl-WebStation</p>
+<p>为您可以控制的内容生成列表</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;sbin&#x2F;synoservice –list</p>
+<p>DSM API - 提供 DSM 信息</p>
+<p>syno dsm getInfo –pretty</p>
+<p>File Station API - 提供 File Station 信息</p>
+<p>syno fs getInfo –pretty</p>
+<p>File Station API - 枚举给定文件夹中的文件</p>
+<p>syno fs listFiles –payload ‘{“folder_path”:”&#x2F;path&#x2F;to&#x2F;folder”}’ –pretty</p>
+<p>Download Station API - 列出下载任务</p>
+<p>syno dl listFiles –payload ‘{“limit”:5, “offset”:10}’ –pretty</p>
+<p>Download Station API - 创建下载任务</p>
+<p>syno dl createTask –payload ‘{“uri”:”<a href="https://link.zhihu.com/?target=https://link">https://link</a>“}’</p>
+<p>Audio Station API - 搜索歌曲</p>
+<p>syno as searchSong –payload ‘{“title”:”my_title_song”}’ –pretty</p>
+<p>Video Station API - 列出电影</p>
+<p>syno vs listMovies –payload ‘{“limit”:5}’ –pretty</p>
+<p>Video Station DTV API - 列出频道</p>
+<p>syno dtv listChannels –payload ‘{“limit”:1}’ –pretty</p>
+<p>Surveillance Station API - 获取摄像头信息</p>
+<p>syno ss getInfoCamera –payload ‘{“cameraIds”:8}’ –pretty</p>
+<p>重新启动、启用、停止 samba</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;etc&#x2F;rc.sysv&#x2F;S80samba.sh –help</p>
+<p>获取 Synology 日期</p>
+<p>synodate –getSysDate</p>
+<p>打印机的东西</p>
+<p>synoprint</p>
+<p>更新索引较旧</p>
+<p>indexfolder –type&#x3D;{SHARE_CREATE|SHARE_REMOVE} –share&#x3D;<SHARED_FOLDER> –share_path&#x3D;<SHARED_FOLDER></p>
+<p>启动媒体服务器</p>
+<p>&#x2F;usr&#x2F;syno&#x2F;bin&#x2F;mediaserver.sh start</p>
+<p>小心，杀死NAS</p>
+<p>servicetool –get-service-volume download</p>
+<p>如果丢失，获取 2FA 密钥</p>
+<p>ssh root@nas cat &#x2F;usr&#x2F;syno&#x2F;etc&#x2F;preference&#x2F;wuseman&#x2F;google_authenticator</p>
+<p>以非常奇特的方式列出磁盘信息</p>
+<p>dhm_tool -s</p>
+<h2 id="8-Synology-自动阻止"><a href="#8-Synology-自动阻止" class="headerlink" title="8. Synology 自动阻止"></a>8. Synology 自动阻止</h2><p>将 IP 添加到自动阻止数据库：</p>
+<p>synoautoblock –deny <ip-address></p>
+<p>重置错误添加的IP：</p>
+<p>synoautoblock –reset <ip-address></p>
+<p>将任何 IP 添加到白名单：</p>
+<p>synoautoblock –in-white-list <ip-address></p>
+<h2 id="9-调试和系统健康："><a href="#9-调试和系统健康：" class="headerlink" title="9. 调试和系统健康："></a>9. 调试和系统健康：</h2><p>调试风扇并通过电子邮件发送结果（如果已设置电子邮件）</p>
+<p>syno_fan_debug</p>
+<p>运行系统健康检查并在完成后通过电子邮件发送结果：</p>
+<p>syno_disk_health_record</p>
+<p>检查〜剩余寿命：</p>
+<p>syno_disk_remain_life_check</p>
+<p>运行 smartmontools 并在完成后发送电子邮件：</p>
+<p>syno_disk_smart_mail_send</p>
+<p>调试休眠：</p>
+<p>syno_hibernation_debug</p>
+<p>LED（获取最小值和最大值：&#x2F;usr&#x2F;syno&#x2F;etc.defaults&#x2F;led_brightness.xml）</p>
+<p>获取当前设置：</p>
+<p>syno_led_brightness –get (Default on DS416: 1985157252)</p>
+<p>设置新设置：</p>
+<p>syno_led_brightness –set <brightness></p>
+<h2 id="10-带宽"><a href="#10-带宽" class="headerlink" title="10. 带宽"></a>10. 带宽</h2><p>打印用户带宽使用情况：</p>
+<p>synobandwidth –status [&lt;list&#x3D;user|group|all(default)&gt; &lt;transfer&#x3D;upload|download|all(default)&gt;] &lt;merge&#x3D;0|1(default)&gt;]</p>
+<p>为用户设置新的带宽限制：</p>
+<p>synobandwidth –set-global-conf &lt;state&#x3D;enabled|disabled&gt; [&lt;protocol&#x3D;filestation|webdav|ftp|rsync|all(default)&gt;</p>
+<p>按用户打印所有服务的用户状态：</p>
+<p>sh-4.3# synobandwidth –preview wuseman</p>
+<p>Protocol Upload Download</p>
+<p>filestation 0.00 0.00</p>
+<p>webdav 0.00 0.00</p>
+<p>ftp 0.00 0.00</p>
+<p>rsync 0.00 0.00</p>
+<h2 id="11-ISCI"><a href="#11-ISCI" class="headerlink" title="11. ISCI"></a>11. ISCI</h2><p>Synology iSCSI 性能分析器</p>
+<p>synoiscsitop40</p>
+<p>4202977879.png</p>
+<h2 id="12-风扇"><a href="#12-风扇" class="headerlink" title="12. 风扇"></a>12. 风扇</h2><p>设置风扇配置（最大声会听起来像飞机）</p>
+<p>synofanconfig -parseXML 1000000</p>
+<h2 id="13-列出了更多-Synology-命令："><a href="#13-列出了更多-Synology-命令：" class="headerlink" title="13. 列出了更多 Synology 命令："></a>13. 列出了更多 Synology 命令：</h2><p>sync</p>
+<p>synologconvert</p>
+<p><a href="https://link.zhihu.com/?target=http://syno-dbus-check.sh">syno-dbus-check.sh</a></p>
+<p>synologrotated</p>
+<p>syno-letsencrypt</p>
+<p>synologset</p>
+<p>syno-move-coredump</p>
+<p>synologset1</p>
+<p>syno8021Xtool</p>
+<p>synolunbackup</p>
+<p>synoRTCTime</p>
+<p>synolunbkp</p>
+<p>syno_adv_test</p>
+<p>synoluntransform</p>
+<p>syno_dc_ctrl_adapter.sh</p>
+<p>synomediaparserd</p>
+<p>syno_disk_config_check</p>
+<p>synomkflv</p>
+<p>syno_disk_ctl</p>
+<p>synomkflvd</p>
+<p>syno_disk_data_collector</p>
+<p>synomkthumb</p>
+<p>syno_disk_db_update</p>
+<p>synomkthumbd</p>
+<p>syno_disk_dsl</p>
+<p>synomoduletool</p>
+<p>syno_disk_health_record</p>
+<p>synomount</p>
+<p>syno_disk_information_daily_record</p>
+<p>synomustache</p>
+<p>syno_disk_log_convert</p>
+<p>synomyds</p>
+<p>syno_disk_log_import_from_xml</p>
+<p>synonclient_send</p>
+<p>syno_disk_remain_life_check</p>
+<p>synonet</p>
+<p>syno_disk_smart_mail_send</p>
+<p>synonetd</p>
+<p>syno_disk_test_log_import_from_xml</p>
+<p>synonetdtool</p>
+<p>syno_disk_test_scheduler_set</p>
+<p>synonetseqadj</p>
+<p>syno_disk_testlog_convert</p>
+<p>synonfstop</p>
+<p>syno_disk_wcache_config_init</p>
+<p>synonotify</p>
+<p>syno_dvb_admin.sh</p>
+<p>synootp</p>
+<p>syno_fan_debug</p>
+<p>synoovstool</p>
+<p>syno_hdd_util</p>
+<p>synopartition</p>
+<p>syno_hibernation_debug</p>
+<p>synopasswordmail</p>
+<p>syno_hw_video_transcoding.sh</p>
+<p>synopayment</p>
+<p>syno_iptables_common</p>
+<p>synoperfeventd</p>
+<p>syno_led_brightness</p>
+<p>synoperformancediagnose</p>
+<p>syno_mem_check</p>
+<p>synopftest</p>
+<p>syno_pkgicon_sprite.py</p>
+<p>synophoto_acl</p>
+<p>syno_poweroff_task</p>
+<p>synophoto_acl_pgsql</p>
+<p>syno_scemd_connector</p>
+<p>synophoto_autoblock</p>
+<p>syno_smart_result_collect</p>
+<p>synophoto_backup</p>
+<p>syno_smart_test</p>
+<p>synophoto_config</p>
+<p>syno_ssd_trim</p>
+<p>synophoto_config_root</p>
+<p>syno_system_dump</p>
+<p>synophoto_dsm_user</p>
+<p>synoabnormalloginmail</p>
+<p>synophoto_external_access</p>
+<p>synoacltool</p>
+<p>synophoto_extract_preview</p>
+<p>synoagentregisterd</p>
+<p>synophoto_music</p>
+<p>synoappbkp</p>
+<p>synophoto_sdk_share_set</p>
+<p>synoappnotify</p>
+<p>synophoto_sns_utils</p>
+<p>synoapppriv_updater</p>
+<p>synophoto_update_db</p>
+<p>synoarchivetool</p>
+<p>synophoto_watermark_util</p>
+<p>synoauth</p>
+<p>synophotoio</p>
+<p>synoautoblock</p>
+<p>synopingpong</p>
+<p>synobackup</p>
+<p>synopkg</p>
+<p>synobackupd</p>
+<p>synopkgctl</p>
+<p>synobandwidth</p>
+<p>synopkghelper</p>
+<p>synoblog_backup</p>
+<p>synoplatform</p>
+<p>synobootseq</p>
+<p>synoportforward</p>
+<p>synobootupcheck</p>
+<p>synopoweroff</p>
+<p>synobtrfssnap</p>
+<p>synopreferencedir</p>
+<p>synocacheclient</p>
+<p>synoprint</p>
+<p>synocachepinfiletool</p>
+<p>synopsql</p>
+<p>synocachepinfiletool-status</p>
+<p>synoquota</p>
+<p>synocachepinfiletoolha</p>
+<p>synoraidtool</p>
+<p>synocerttool</p>
+<p>synorecycle</p>
+<p>synocfgen</p>
+<p>synorelayd</p>
+<p>synocgid</p>
+<p>synoretainer</p>
+<p>synocgitool</p>
+<p>synoretention-lun</p>
+<p>synocheckhotspare</p>
+<p>synoretentionconf</p>
+<p>synocheckiscsitrg</p>
+<p>synoretentiontest</p>
+<p>synochecknetworkcfg</p>
+<p><a href="https://link.zhihu.com/?target=http://synoretentiontestutil.sh">synoretentiontestutil.sh</a></p>
+<p>synocheckshare</p>
+<p>synorouterportfwd</p>
+<p>synocheckswapconfig</p>
+<p>synoroutertool</p>
+<p>synocloudserviceauth</p>
+<p>synorsyncdtool</p>
+<p>synocmsclient</p>
+<p>synosavetime</p>
+<p>synocodectool</p>
+<p>synoscgi</p>
+<p>synoconfbkp</p>
+<p>synoscgi</p>
+<p>synoconfd</p>
+<p>synoschedtask</p>
+<p>synocontentextract</p>
+<p>synoschedtool</p>
+<p>synocontentextractd</p>
+<p>synoscimprofile</p>
+<p>synocopy</p>
+<p>synosdutils</p>
+<p>synocredential</p>
+<p>synosearch</p>
+<p>synocrond</p>
+<p>synosearchagent</p>
+<p>synocrtregister</p>
+<p>synoselfcheck</p>
+<p>synocrtunregister</p>
+<p>synoservice</p>
+<p>synodatacollect</p>
+<p>synoservicecfg</p>
+<p>synodataverifier</p>
+<p>synoservicectl</p>
+<p>synodate</p>
+<p>synoservicemigrate</p>
+<p>synodctest</p>
+<p>synosetkeyvalue</p>
+<p>synodd</p>
+<p>synoshare</p>
+<p>synoddnsinfo</p>
+<p>synosharequota</p>
+<p>synoddsmtool</p>
+<p>synosharesnapshot</p>
+<p>synodisk</p>
+<p>synosharesnaptool</p>
+<p>synodiskdatacollect</p>
+<p>synosharesnaptree</p>
+<p>synodiskfind</p>
+<p>synosharingbackup</p>
+<p>synodiskpathparse</p>
+<p>synosharingchecker</p>
+<p>synodiskport</p>
+<p>synosharingcron</p>
+<p>synodriveencode</p>
+<p>synosharingurl</p>
+<p>synodrivehook</p>
+<p>synosmartblock</p>
+<p>synodriveindex</p>
+<p><a href="https://link.zhihu.com/?target=http://synosnapschedtask.sh">synosnapschedtask.sh</a></p>
+<p>synodriveobject</p>
+<p>synosnmpcd</p>
+<p>synodrivesettings</p>
+<p>synospace</p>
+<p>synodriveversion</p>
+<p><a href="https://link.zhihu.com/?target=http://synospace.sh">synospace.sh</a></p>
+<p>synodrivevolume</p>
+<p>synosshdutils</p>
+<p>synodsdefault</p>
+<p>synostgpool</p>
+<p>synodsinfo</p>
+<p>synostgsysraid</p>
+<p>synodsmnotify</p>
+<p>synostgvolume</p>
+<p>synoeaupgrade</p>
+<p>synostorage</p>
+<p>synoethinfo</p>
+<p>synostoragecore</p>
+<p>synoexternal</p>
+<p>synostoraged</p>
+<p>synofanconfig</p>
+<p>synosupportchannelchecker</p>
+<p>synofileutil</p>
+<p>synosyncdctime</p>
+<p>synofirewall</p>
+<p>synosyslogmail</p>
+<p>synofirewallUpdater</p>
+<p>synotc</p>
+<p>synoflashcache</p>
+<p>synotc_common</p>
+<p>synoflvconv</p>
+<p>synothumb</p>
+<p>synofstool</p>
+<p>synotifyd</p>
+<p>synogear</p>
+<p>synotifydutil</p>
+<p>synogetkeyvalue</p>
+<p>synotimecontrol</p>
+<p>synogpoclientd</p>
+<p>synotlstool</p>
+<p>synogrinst</p>
+<p>synotune</p>
+<p>synogroup</p>
+<p>synotunnelexec</p>
+<p>synoguest</p>
+<p>synoupgrade</p>
+<p>synohacore</p>
+<p>synoupnp</p>
+<p>synoindex</p>
+<p>synoups</p>
+<p>synoindex_mgr</p>
+<p>synoupscommon</p>
+<p>synoindex_package.sh</p>
+<p>synousbcam</p>
+<p>synoindexd</p>
+<p>synousbcopy</p>
+<p>synoindexplugind</p>
+<p>synousbdisk</p>
+<p>synoindexscand</p>
+<p>synousbmodemd</p>
+<p>synoindexworkerd</p>
+<p>synouser</p>
+<p>synoiscsiep</p>
+<p>synouserdir</p>
+<p>synoiscsihook</p>
+<p>synouserhome</p>
+<p>synoiscsitool</p>
+<p>synovolumesnapshot</p>
+<p>synoiscsitop</p>
+<p>synovpnc</p>
+<p>synoiscsitop40</p>
+<p>synovspace</p>
+<p>synoiscsiunmap</p>
+<p>synovspace_wrapper</p>
+<p>synoiscsiwebapi</p>
+<p>synow3</p>
+<p>synoisns</p>
+<p>synow3tool</p>
+<p>synokerneltz</p>
+<p>synowebapi</p>
+<p>synolanstatus</p>
+<p>synowifid</p>
+<p>synoldapclient</p>
+<p>synowin</p>
+<p>synoldapclientd</p>
+<p>synowireless</p>
+<p>synologaccd</p>
+<p>synowsdiscoveryd</p>
+<p>synologand</p>
+<p>synowstransferd</p>
+<p>synologanutil</p>
+<p>synozram</p>
+<p>synologconfgen</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.konfan.cn">SummerTail</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.konfan.cn/2024/01/07/synology/">https://www.konfan.cn/2024/01/07/synology/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.konfan.cn" target="_blank">夏尾的布唠隔</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BE%A4%E6%99%96/">群晖</a><a class="post-meta__tags" href="/tags/%E9%BB%91%E7%BE%A4%E6%99%96/">黑群晖</a><a class="post-meta__tags" href="/tags/synology/">synology</a></div><div class="post_share"><div class="social-share" data-image="/2024/01/07/synology/cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/14/switchboard/" title="三层交换机VLAN配置学习"><img class="cover" src="/2024/01/14/switchboard/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">三层交换机VLAN配置学习</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/14/SpringCloudAlibaba/" title="Spring Cloud Alibaba"><img class="cover" src="/2022/01/14/SpringCloudAlibaba/alibaba.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring Cloud Alibaba</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">SummerTail</div><div class="author-info__description">ε=(´ο｀*)))唉..好累啊</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Summer-Tail"><i class="fab fa-github"></i><span>我的主页</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81"><span class="toc-number">1.1.</span> <span class="toc-text">状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E6%81%A2%E5%A4%8D"><span class="toc-number">1.2.</span> <span class="toc-text">尝试恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%AE%E5%A4%8D%E7%BD%91%E7%BB%9C"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 修复网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%87%8D%E5%BB%BA%E5%BC%95%E5%AF%BC"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 重建引导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A3%80%E6%9F%A5Nginx"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 检查Nginx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%8A%9F%E8%AE%BF%E9%97%AE"><span class="toc-number">1.3.</span> <span class="toc-text">成功访问</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BE%A4%E6%99%96%E5%91%BD%E4%BB%A4%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">群晖命令集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.</span> <span class="toc-text">1. 常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%85%B1%E4%BA%AB%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">2. 共享相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">3. 用户相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%80%9A%E7%9F%A5%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">2.4.</span> <span class="toc-text">4. 通知相关命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%B0%83%E4%BC%98%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-number">2.5.</span> <span class="toc-text">5. 调优功能：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8D%87%E7%BA%A7%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">2.6.</span> <span class="toc-text">6. 升级相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E9%87%8D%E7%BD%AESynology-Nas-%E5%92%8C%E5%85%B6%E5%AE%83%E5%91%BD%E4%BB%A4"><span class="toc-number">2.7.</span> <span class="toc-text">7. 重置Synology Nas 和其它命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Synology-%E8%87%AA%E5%8A%A8%E9%98%BB%E6%AD%A2"><span class="toc-number">2.8.</span> <span class="toc-text">8. Synology 自动阻止</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E8%B0%83%E8%AF%95%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%81%A5%E5%BA%B7%EF%BC%9A"><span class="toc-number">2.9.</span> <span class="toc-text">9. 调试和系统健康：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%B8%A6%E5%AE%BD"><span class="toc-number">2.10.</span> <span class="toc-text">10. 带宽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-ISCI"><span class="toc-number">2.11.</span> <span class="toc-text">11. ISCI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E9%A3%8E%E6%89%87"><span class="toc-number">2.12.</span> <span class="toc-text">12. 风扇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E5%88%97%E5%87%BA%E4%BA%86%E6%9B%B4%E5%A4%9A-Synology-%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">2.13.</span> <span class="toc-text">13. 列出了更多 Synology 命令：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/19/emby/" title="Emby直链网盘不限速播放"><img src="/2024/03/19/emby/v2-07ee0e05a96c89eb127fb2835593b0d2_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Emby直链网盘不限速播放"/></a><div class="content"><a class="title" href="/2024/03/19/emby/" title="Emby直链网盘不限速播放">Emby直链网盘不限速播放</a><time datetime="2024-03-19T10:47:00.000Z" title="发表于 2024-03-19 18:47:00">2024-03-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/14/switchboard/" title="三层交换机VLAN配置学习"><img src="/2024/01/14/switchboard/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三层交换机VLAN配置学习"/></a><div class="content"><a class="title" href="/2024/01/14/switchboard/" title="三层交换机VLAN配置学习">三层交换机VLAN配置学习</a><time datetime="2024-01-14T13:28:00.000Z" title="发表于 2024-01-14 21:28:00">2024-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/07/synology/" title="群晖炸机自救恢复笔记"><img src="/2024/01/07/synology/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖炸机自救恢复笔记"/></a><div class="content"><a class="title" href="/2024/01/07/synology/" title="群晖炸机自救恢复笔记">群晖炸机自救恢复笔记</a><time datetime="2024-01-06T17:31:23.000Z" title="发表于 2024-01-07 01:31:23">2024-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/14/SpringCloudAlibaba/" title="Spring Cloud Alibaba"><img src="/2022/01/14/SpringCloudAlibaba/alibaba.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring Cloud Alibaba"/></a><div class="content"><a class="title" href="/2022/01/14/SpringCloudAlibaba/" title="Spring Cloud Alibaba">Spring Cloud Alibaba</a><time datetime="2022-01-14T06:33:25.000Z" title="发表于 2022-01-14 14:33:25">2022-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/11/linkGithub/" title="使用SmartDNS裸连Github"><img src="/2022/01/11/linkGithub/github.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用SmartDNS裸连Github"/></a><div class="content"><a class="title" href="/2022/01/11/linkGithub/" title="使用SmartDNS裸连Github">使用SmartDNS裸连Github</a><time datetime="2022-01-11T14:14:55.000Z" title="发表于 2022-01-11 22:14:55">2022-01-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/2024/01/07/synology/cover.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By SummerTail</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href='https://beian.miit.gov.cn/'>黑ICP备20002096号-2</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.konfan.cn/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"requiredMeta":["nick","mail"]}))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.css')
+      const { init } = await import('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><script src="/img/RandomImgs.js"></script></div></body></html>
